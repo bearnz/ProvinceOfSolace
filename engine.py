@@ -1,7 +1,7 @@
 '''
 Province of Solace
 Developer: Josh Smith
-Contact: https://github.com/raebeht
+Contact: https://github.com/bearnz
 
 Game engine file built using the pyGame module
 TBC

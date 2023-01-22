@@ -1,7 +1,7 @@
 '''
 Menu and element definitions and classes for Province of Solace - v0.1
 Developer: Josh Smith
-Contact: https://github.com/raebeht
+Contact: https://github.com/bearnz
 
 Menus file built using the pyGame module
 TBC
@@ -34,6 +34,7 @@ def moveImgRelCentre(screen, img, imgRect, x, y):
     leftEdge, topEdge = centre[0] - (imgDim[0]/2) + x, centre[1] - (imgDim[1]/2) + y
     outputRect = pg.Rect((leftEdge, topEdge, imgDim[0], imgDim[1]))
     screen.blit(img, outputRect)
+    return outputRect
 
 
 class textBox:
@@ -55,8 +56,6 @@ class textBox:
         self.output = pg.Surface((surface.get_width(), surface.get_height()))
         self.output.blit(surface, (0, 0))
         self.output.blit(rendText, ((surface.get_width() / 2) - (rendText.get_width() / 2), (surface.get_height() / 2) - (rendText.get_height() / 2)))
-        if clickable:
-            print('AYYY LMAO')
     
     def updateText(self, newText):
         print("TO IMPLEMENT UPDATE TEXT")
@@ -75,24 +74,26 @@ class launchScreen:
         self.loading = 1
 
 class mainMenu:
-    def __init__(self, screen):
+    def __init__(self, screen, visible):
         bkgCol = 255, 255, 255, 255 #white
         screen.fill(bkgCol)
-        self.buttons = []
+        if visible:
+            self.buttons = []
 
-        wzImg, wzImgRect = loadImg("img/wazard.png", 0.9, 0.9)
-        moveImgRelCentre(screen, wzImg, wzImgRect, 0, -100)
+            wzImg, wzImgRect = loadImg("img/wazard.png", 0.9, 0.9)
+            wzImgRect = moveImgRelCentre(screen, wzImg, wzImgRect, 0, -100)
 
-        playButt = textBox("Play Game", 5)
-        moveImgRelCentre(screen, playButt.output, playButt.textPos, 0, 75)
-        self.buttons.append(playButt)
+            playButt = textBox("Play Game", 5, True)
+            playButt.textPos = moveImgRelCentre(screen, playButt.output, playButt.textPos, 0, 75)
+            self.buttons.append(playButt)
 
-        helpButt = textBox("Help", 5)
-        moveImgRelCentre(screen, helpButt.output, helpButt.textPos, 0, 125)
+            helpButt = textBox("Help", 5, True)
+            helpButt.textPos = moveImgRelCentre(screen, helpButt.output, helpButt.textPos, 0, 125)
+            self.buttons.append(helpButt)
 
-        quitButt = textBox("Quit", 5)
-        moveImgRelCentre(screen, quitButt.output, quitButt.textPos, 0, 175)
-        
+            quitButt = textBox("Quit", 5, True)
+            quitButt.textPos = moveImgRelCentre(screen, quitButt.output, quitButt.textPos, 0, 175)
+            self.buttons.append(quitButt)
         # rectColor = (0.5, 0.1, 0.9)
         # titleElement = pg.Rect(0, 100, 200, 300)
         # pg.draw.rect(screen, rectColor, titleElement)
