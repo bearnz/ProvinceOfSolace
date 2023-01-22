@@ -3,7 +3,7 @@
 Province of Solace
 Version: v0.0 VERY EARLY DEVELOPMENT
 Developer: Josh Smith
-Contact: https://github.com/raebeht
+Contact: https://github.com/bearnz
 
 TODO: EVERYTHING LOL
 
@@ -30,13 +30,14 @@ DEBUG = True
 def main():
     #Global variables to control core game functionality
     PAUSE = 1
+    GAMESPEED_NORM = 60
     GAMESPEED = 0
     #Engine init, launch game into main menu
     game = engine.gameEngine()
     pg.display.set_caption("Province of Solace v0.01")
     mainScreen = game.screen
     launching = menu.launchScreen(mainScreen)
-    mMenu = menu.mainMenu(mainScreen)
+    mMenu = menu.mainMenu(mainScreen, PAUSE)
     if DEBUG:
         print("DEBUG MODE ON")
         print("Diagnostic info below")
@@ -44,11 +45,24 @@ def main():
         print(pg.display.Info())
     while True:
         mouse = pg.mouse.get_pos()
+        keys = pg.key.get_pressed()
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 sys.exit()
+            
+            if PAUSE == 1:
+                GAMESPEED = 0
+            else:
+                GAMESPEED = GAMESPEED_NORM
+            
+            #Toggle pause menu whenever Esc key is pressed
+            if event.type == pg.KEYDOWN and event.__dict__['key'] == 27:
+                PAUSE ^= 1
+                menu.mainMenu(mainScreen, PAUSE)
+            
             if event.type == pg.MOUSEBUTTONDOWN:
                 pg.draw.rect(mainScreen, pg.Color('red'), [100, 100, 100, 100])
+            
             else:
                 currentFrame =  pg.display.get_surface()
                 #if DEBUG:
