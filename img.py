@@ -16,7 +16,7 @@ def loadImg(path, x=1, y=1):
     img = pg.transform.scale(img, (wTransform, hTransform))
     return img, img.get_rect()
 
-def moveImgRelCentre(screen, img, imgRect, x, y):
+def moveImgRelCentre(screen, img, imgRect, x=0, y=0):
     '''
     Left = -x | Right = +x
       Up = -y | Down  = +y
