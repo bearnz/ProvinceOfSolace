@@ -1,6 +1,7 @@
 """
 Image loading and modification module
 """
+import pygame as pg
 
 def loadImg(path, x=1, y=1):
     '''
