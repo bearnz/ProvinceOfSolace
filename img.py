@@ -1,3 +1,7 @@
+"""
+Image loading and modification module
+"""
+
 def loadImg(path, x=1, y=1):
     '''
     @params:
