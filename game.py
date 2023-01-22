@@ -22,6 +22,7 @@ import pygame as pg
 import sys
 import engine
 import menu
+import environment as env
 import os
 import random
 
@@ -38,6 +39,8 @@ def main():
     mainScreen = game.screen
     launching = menu.launchScreen(mainScreen)
     mMenu = menu.mainMenu(mainScreen, PAUSE)
+    gameLevels = list(env.COLOURS.keys())
+    level = gameLevels[0]
     if DEBUG:
         print("DEBUG MODE ON")
         print("Diagnostic info below")
@@ -59,6 +62,7 @@ def main():
             if event.type == pg.KEYDOWN and event.__dict__['key'] == 27:
                 PAUSE ^= 1
                 menu.mainMenu(mainScreen, PAUSE)
+                env.draw(mainScreen, PAUSE, level)
             
             if event.type == pg.MOUSEBUTTONDOWN:
                 pg.draw.rect(mainScreen, pg.Color('red'), [100, 100, 100, 100])
